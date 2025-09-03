@@ -70,11 +70,11 @@ WanderAI/
 
 <p align="center">
   <img src="public/S3.png" alt="Screenshot 3" width="45%" style="border-radius:15px; margin:10px;" />
-  <img src="public/S4.png" alt="Screenshot 4" width="45%" style="border-radius:15px; margin:10px;" />
+  <img src="public/S5.png" alt="Screenshot 4" width="45%" style="border-radius:15px; margin:10px;" />
 </p>
 
 <p align="center">
-  <img src="public/S5.png" alt="Screenshot 5" width="45%" style="border-radius:15px; margin:10px;" />
+  <img src="public/S4.png" alt="Screenshot 5" width="45%" style="border-radius:15px; margin:10px;" />
   <img src="public/S6.png" alt="Screenshot 6" width="45%" style="border-radius:15px; margin:10px;" />
 </p>
 
