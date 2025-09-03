@@ -43,15 +43,15 @@ const Hero = () => {
     router.push('/create-new-trip');// Redirect to create-new-trip page if logged in
   };
   return (
-    <div className=" mt-5 sm:mt-8 w-full flex items-center justify-center px-3 sm:px-6 lg:px-8 min-h-[80vh] sm:min-h-[70vh]  mb-10 overflow-hidden">
+    <div className=" mt-5 sm:mt-8 w-full flex items-center justify-center px-3 sm:px-6 lg:px-8 min-h-[80vh] md:min-h-[84vh] sm:min-h-[70vh] mb-10 overflow-hidden">
       {/* 🎥 Background Video */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full object-cover -z-10"
-        style={{ width: "100%", height: "27%" }}
+        className="absolute inset-0 w-full h-auto object-cover aspect-[16/9] -z-10"
+        style={{ width: "100%", height: "28%" }}
       >
         <source src="/marquee1.mp4" type="video/mp4" />
         Your browser does not support the video tag.
