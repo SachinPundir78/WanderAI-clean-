@@ -14,7 +14,7 @@ const menuOptions = [
   { name: "Home", path: "/" },
   { name: "Pricing", path: "/pricing" },
   { name: "Destinations", path: "/#cards" },
-  { name: "Contact Us", path: "/Contact-Us" },
+  { name: "Contact Us", path: "/Contact" },
 ];
 
 const Header = () => {

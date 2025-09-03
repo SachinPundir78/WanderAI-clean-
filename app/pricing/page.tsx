@@ -1,6 +1,5 @@
 import React from 'react'
 import { PricingTable } from "@clerk/nextjs";
-import { div } from 'motion/react-client';
 
 function page() {
     return (

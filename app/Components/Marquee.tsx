@@ -17,9 +17,9 @@ const Marquee = () => {
       />
 
       {/* Content Container with explicit centering */}
-      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center mt-0">
         {/* Added Heading */}
-        <div className="mb-8 text-center px-4">
+        <div className="mb-10 text-center px-4">
           <h2 className="text-5xl sm:text-10xl font-extrabold font-script text-black drop-shadow-lg">
             Not Sure Where to Start From?
           </h2>
@@ -34,7 +34,7 @@ const Marquee = () => {
           <HeroVideoDialog
             className="block dark:hidden w-full max-w-3xl mx-auto"
             animationStyle="from-center"
-            videoSrc="https://www.example.com/dummy-video"
+            videoSrc="/DisplayVideo.mp4"
             thumbnailSrc="https://mma.prnewswire.com/media/2401528/1_MindtripProduct.jpg?p=facebook"
             thumbnailAlt="Dummy Video Thumbnail"
           />

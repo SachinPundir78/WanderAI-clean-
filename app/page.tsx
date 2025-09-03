@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import Hero from "./Components/Hero";
 import Marquee from "./Components/Marquee";
 import { Cards } from "./Components/Cards";

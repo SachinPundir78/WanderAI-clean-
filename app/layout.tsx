@@ -6,7 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 
 export const metadata: Metadata = {
-  title: "AI Trip Planner",
+  title: "WanderAI",
   description: "Plan your dream trips with AI",
 };
 
