@@ -12,6 +12,7 @@ It helps users effortlessly plan trips, explore destinations, and generate detai
 - 🔐 **Secure authentication** with Clerk
 - 🗄️ **Database & backend logic** powered by Convex
 - ⚡ **Rate limiting & security** via Arcjet
+- 🍁 ** Google Maps using Google Api
 - 🎨 **Modern responsive UI** with TailwindCSS + ShadCN/UI
 - 🎥 **Video backgrounds & animations** for immersive experience
 - 🗺️ **Interactive maps** with MapLibre / Globe integration (optional you can add that also)
@@ -60,20 +61,38 @@ WanderAI/
 
 ## 🖼️ Screenshots
 
-Here are some screenshots of **WanderAI** in action:
+<h1 className='font-bold text-4xl'>Here Are Some Screenshots of My project WANDER-AI</h1>
 
-1. ![Screenshot 1](public/S1.png)
-2. ![Screenshot 2](public/S2.png)
-3. ![Screenshot 3](public/S3.png)
-4. ![Screenshot 4](public/S4.png)
-5. ![Screenshot 5](public/S5.png)
-6. ![Screenshot 6](public/S6.png)
-7. ![Screenshot 7](public/S7.png)
-8. ![Screenshot 8](public/S8.png)
-9. ![Screenshot 9](public/S9.png)
-10. ![Screenshot 10](public/S10.png)
-11. ![Screenshot 11](public/S11.png)
-12. ![Screenshot 12](public/S12.png)
+<p align="center">
+  <img src="public/S1.png" alt="Screenshot 1" width="45%" style="border-radius:15px; margin:10px;" />
+  <img src="public/S2.png" alt="Screenshot 2" width="45%" style="border-radius:15px; margin:10px;" />
+</p>
+
+<p align="center">
+  <img src="public/S3.png" alt="Screenshot 3" width="45%" style="border-radius:15px; margin:10px;" />
+  <img src="public/S4.png" alt="Screenshot 4" width="45%" style="border-radius:15px; margin:10px;" />
+</p>
+
+<p align="center">
+  <img src="public/S5.png" alt="Screenshot 5" width="45%" style="border-radius:15px; margin:10px;" />
+  <img src="public/S6.png" alt="Screenshot 6" width="45%" style="border-radius:15px; margin:10px;" />
+</p>
+
+<p align="center">
+  <img src="public/S7.png" alt="Screenshot 7" width="45%" style="border-radius:15px; margin:10px;" />
+  <img src="public/S8.png" alt="Screenshot 8" width="45%" style="border-radius:15px; margin:10px;" />
+</p>
+
+<p align="center">
+  <img src="public/S9.png" alt="Screenshot 9" width="45%" style="border-radius:15px; margin:10px;" />
+  <img src="public/S10.png" alt="Screenshot 10" width="45%" style="border-radius:15px; margin:10px;" />
+</p>
+
+<p align="center">
+  <img src="public/S11.png" alt="Screenshot 11" width="45%" style="border-radius:15px; margin:10px;" />
+  <img src="public/S12.png" alt="Screenshot 12" width="45%" style="border-radius:15px; margin:10px;" />
+</p>
+
 
 ---
 
