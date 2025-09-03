@@ -1,12 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { FaMusic } from "react-icons/fa";
 
 
 const menuOptions = [
@@ -18,15 +19,27 @@ const menuOptions = [
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false); // Music state
+  const audioRef = useRef<HTMLAudioElement | null>(null); // Audio reference // Audio reference
+  const { user } = useUser();
+  const path = usePathname();
+  const router = useRouter();
+  console.log(path);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-  
-  const {user}=useUser();
-  const path = usePathname();
-  console.log(path);
 
+  const handleLogoClick = () => {
+    router.push("/"); // Redirect to home page
+  };
+
+  // Toggle music playback
+  const toggleMusic = () => {
+    if (!audioRef.current) return;
+    isPlaying ? audioRef.current.pause() : audioRef.current.play();
+    setIsPlaying(!isPlaying);
+  };
 
   return (
     <header className="relative top-0 z-30 w-full">
@@ -41,7 +54,10 @@ const Header = () => {
             height={55}
             className="sm:w-[100px] sm:h-[65px] lg:w-[120px] lg:h-[80px] xl:w-[110px] xl:h-[70px] object-cover filter contrast-125 brightness-110"
           />
-          <h1 className="font-medium font-sans text-lg sm:text-2xl lg:text-3xl text-white drop-shadow-lg">
+          <h1
+            className="font-medium font-sans text-lg sm:text-2xl lg:text-3xl text-white drop-shadow-lg"
+            onClick={handleLogoClick}
+          >
             WanderAI
           </h1>
         </div>
@@ -63,8 +79,28 @@ const Header = () => {
         </nav>
 
         {/* Desktop Get Started Button - Hidden on tablet/mobile */}
-        {/* Desktop Get Started Button - Hidden on tablet/mobile */}
         <div className="hidden lg:flex mr-14 items-center gap-4">
+          {/* Music Button - Only visible on tablets and desktops */}
+          <div
+            onClick={toggleMusic}
+            className={`relative md:flex items-center justify-center hidden w-10 h-10 rounded-full bg-black cursor-pointer transition-all duration-300
+              ${isPlaying ? "animate-spin-slow" : "shadow-[0_0_10px_rgba(210,181,181,0.7)]"}`}
+          >
+            <FaMusic
+              className={`text-white text-xl ${isPlaying ? "animate-spin-slow" : ""} hover:text-purple-300 transition duration-300 z-10`}
+            />
+            {isPlaying && (
+              <div
+                className="absolute inset-0 rounded-full border-t border-[rgba(210,181,181,0.7)] animate-[spin_4.5s_linear_infinite]"
+                style={{
+                  top: "-3px",
+                  left: "-3px",
+                  right: "-3px",
+                  bottom: "-3px",
+                }}
+              />
+            )}
+          </div>
           {!user ? (
             <SignInButton mode="modal">
               <RainbowButton className="font-sans w-full bg-white font-semibold hover:bg-black hover:text-white">
@@ -84,6 +120,7 @@ const Header = () => {
               </RainbowButton>
             </Link>
           )}
+
           <UserButton
             appearance={{
               elements: {
@@ -162,6 +199,11 @@ const Header = () => {
           </nav>
         </div>
       )}
+      {/* Background Audio */}
+      <audio ref={audioRef} loop preload="auto">
+        <source src="/Harley-In-Hawaii.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
     </header>
   );
 };

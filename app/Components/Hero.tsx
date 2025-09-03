@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Compass, Plane, Globe2, Landmark } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { AuroraText } from "@/components/magicui/aurora-text";
 
 export const suggestions = [
   {
@@ -60,7 +61,7 @@ const Hero = () => {
         {/* Heading */}
         <h1 className="text-xl sm:text-6xl md:text-6xl lg:text-5xl font-bold font-sans leading-tight text-white">
           Where adventure meets{" "}
-          <span className="bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-purple-600  to-pink-600 bg-clip-text text-transparent">
             Simplicity.
           </span>
           <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-pink-500 inline-block align-middle animate-pulse ml-2" />
@@ -91,12 +92,14 @@ const Hero = () => {
                 and unforgettable adventures — so you can focus
               </span>
             </span>{" "}
-            <span className="block sm:inline mt-1 sm:mt-0">
-              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent ">
-                on living the moment, not stressing about it.No stress, just
-                epic journeys!
-              </span>
-            </span>{" "}
+            <AuroraText>
+              <span className="block sm:inline mt-1 sm:mt-0">
+                <span className=" bg-clip-text text-transparent text-xl font-semibold">
+                  on living the moment, not stressing about it.No stress, just
+                  epic journeys!
+                </span>
+              </span>{" "}
+            </AuroraText>
             <span className="block sm:inline mt-2 sm:mt-0">
               <span className="text-yellow-300">✨</span>
               <span className="text-red-400">📍</span>
