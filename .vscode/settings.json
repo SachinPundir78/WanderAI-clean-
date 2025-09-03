@@ -1,0 +1,13 @@
+{
+  // COMPLETELY DISABLE MULTI-CURSOR
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.multiCursorLimit": 1000,
+
+  // DISABLE MOUSE MULTI-SELECTION
+  "editor.mouseStyle": "text",
+  "editor.columnSelection": false,
+
+  // PREVENT ACCIDENTAL MULTI-CURSOR
+  "editor.find.cursorMoveOnType": false,
+  "editor.selectionHighlight": false
+}
