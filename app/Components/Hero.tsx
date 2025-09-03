@@ -67,7 +67,7 @@ const Hero = () => {
           <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-pink-500 inline-block align-middle animate-pulse ml-2" />
         </h1>
         <div className="flex items-center justify-center font-bold font-sans lg:mt-3 gap-3">
-          <Compass className="w-10 h-10 text-red-600" />
+          <Compass className="w-10 h-10 text-green-500 animate-aurora" />
           <span className="font-bold text-white lg:text-3xl md:text-2xl sm:text-xl">
             Explore
           </span>
@@ -93,8 +93,8 @@ const Hero = () => {
               </span>
             </span>{" "}
             <AuroraText>
-              <span className="block sm:inline mt-1 sm:mt-0">
-                <span className=" bg-clip-text text-transparent text-xl font-semibold">
+              <span className="sm:inline mt-1 sm:mt-0">
+                <span className=" bg-clip-text text-transparent text-xl font-bold">
                   on living the moment, not stressing about it.No stress, just
                   epic journeys!
                 </span>
@@ -104,7 +104,7 @@ const Hero = () => {
               <span className="text-yellow-300">✨</span>
               <span className="text-red-400">📍</span>
             </span>
-            <MapPin className="w-6 h-6 sm:w-7 sm:h-7 md:w-9 md:h-9 lg:w-11 lg:h-11 mt-2 sm:mt-2 text-orange-400 animate-bounce inline-block" />
+            <MapPin className="w-6 h-6 sm:w-7 sm:h-7 md:w-9 md:h-9 lg:w-11 lg:h-11 mt-2 sm:mt-2 text-purple-400 animate-bounce inline-block" />
           </p>
         </div>
 
@@ -115,7 +115,7 @@ const Hero = () => {
               <Textarea
                 placeholder="Enter your destination..."
                 className="w-full h-10 sm:h-24 md:h-32 lg:h-36 bg-transparent backdrop-blur-[2px] border-0 border-gray-100 rounded-xl sm:rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-400 shadow-inner 
-        text-lg sm:text-xl md:text-2xl lg:text-2xl font-normal font-sans resize-none text-gray-900 placeholder-black-900 px-4 sm:px-6 py-3 sm:py-4 pr-16 sm:pr-20"
+        text-lg sm:text-xl md:text-2xl lg:text-2xl font-normal font-script resize-none text-gray-900 placeholder-black-900 px-4 sm:px-6 py-3 sm:py-4 pr-16 sm:pr-20"
               />
 
               {/* Button Inside Container - Responsive */}

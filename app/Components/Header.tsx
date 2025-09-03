@@ -19,7 +19,8 @@ const menuOptions = [
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false); // Music state
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);// Music state
   const audioRef = useRef<HTMLAudioElement | null>(null); // Audio reference // Audio reference
   const { user } = useUser();
   const path = usePathname();
@@ -35,11 +36,32 @@ const Header = () => {
   };
 
   // Toggle music playback
+  const musicTracks = ["/Ordinary.mp3", "/Kamn.mp3", "/Harley-In-Hawaii.mp3","/Havana.mp3","/Chemtrails-over-the-country-club.mp3"];
+
   const toggleMusic = () => {
     if (!audioRef.current) return;
-    isPlaying ? audioRef.current.pause() : audioRef.current.play();
+
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.src = musicTracks[currentTrackIndex];
+      audioRef.current.play();
+    }
     setIsPlaying(!isPlaying);
   };
+
+const playRandomTrack = () => {
+  let nextIndex = Math.floor(Math.random() * musicTracks.length);
+  // Make sure it doesn't repeat the same track consecutively
+  while (nextIndex === currentTrackIndex && musicTracks.length > 1) {
+    nextIndex = Math.floor(Math.random() * musicTracks.length);
+  }
+  setCurrentTrackIndex(nextIndex);
+  if (audioRef.current) {
+    audioRef.current.src = musicTracks[nextIndex];
+    audioRef.current.play();
+  }
+};
 
   return (
     <header className="relative top-0 z-30 w-full">
@@ -200,8 +222,11 @@ const Header = () => {
         </div>
       )}
       {/* Background Audio */}
-      <audio ref={audioRef} loop preload="auto">
-        <source src="/Harley-In-Hawaii.mp3" type="audio/mp3" />
+      <audio
+        ref={audioRef}
+        onEnded={playRandomTrack} // play next track when current ends
+      >
+        <source src={musicTracks[currentTrackIndex]} type="audio/mp3" />
         Your browser does not support the audio element.
       </audio>
     </header>
