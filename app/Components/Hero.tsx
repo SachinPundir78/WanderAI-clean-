@@ -51,7 +51,7 @@ const Hero = () => {
         muted
         playsInline
         className="absolute inset-0 w-full object-cover -z-10"
-        style={{ width: "100%", height: "27%" }}
+        style={{ width: "100%", height: "30%" }}
       >
         <source src="/marquee1.mp4" type="video/mp4" />
         Your browser does not support the video tag.
