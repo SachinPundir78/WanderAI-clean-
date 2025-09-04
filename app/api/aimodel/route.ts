@@ -82,6 +82,7 @@ Generate a COMPLETE travel plan that includes:
 Rules:
 - ALL fields MUST be included exactly as in the schema.
 - If data is unavailable, use "N/A" instead of leaving it out.
+- NEVER skip or omit "price_per_night" for hotels and "ticket_pricing" for activities — if unknown, ALWAYS set them as "N/A".
 - Output ONLY strict JSON. No extra text, no explanations.
 
 Schema:
