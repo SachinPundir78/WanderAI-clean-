@@ -1,5 +1,5 @@
 "use client";
-import React, { use } from "react";
+import React, { useEffect, useState } from "react";
 import { Sparkles, MapPin } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,8 @@ import { Compass, Plane, Globe2, Landmark } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { AuroraText } from "@/components/magicui/aurora-text";
+import { Typewriter } from "react-simple-typewriter";
+
 
 export const suggestions = [
   {
@@ -30,20 +32,44 @@ export const suggestions = [
   },
 ];
 
+// 🌟 Rotating words for header
+const rotatingWords = [
+  "Simplicity.",
+  "Innovation.",
+  "Creativity.",
+  "Exploration.",
+  "Horizons.",
+  "Frontiers.",
+  "Adventures.",
+];
+
 const Hero = () => {
   const { user } = useUser();
-  
+
   const router = useRouter();
 
   const onPlane = () => {
     if (!user) {
-      router.push('/sign-in')// Redirect to sign-in page if not logged in
+      router.push("/sign-in"); // Redirect to sign-in page if not logged in
       return;
     }
-    router.push('/create-new-trip');// Redirect to create-new-trip page if logged in
+    router.push("/create-new-trip"); // Redirect to create-new-trip page if logged in
   };
+
+  // 🔄 Rotating words state
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentWord, setCurrentWord] = useState(rotatingWords[0]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % rotatingWords.length);
+      setCurrentWord(rotatingWords[(currentIndex + 1) % rotatingWords.length]);
+    }, 2500); // change word every 2.5s
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
   return (
-    <div className=" mt-5 sm:mt-8 w-full flex items-center justify-center px-3 sm:px-6 lg:px-8 min-h-[80vh] md:min-h-[84vh] sm:min-h-[70vh] mb-10 overflow-hidden">
+    <div className=" mt-5 sm:mt-8 w-full flex items-center justify-center px-3 sm:px-6 lg:px-8 min-h-[80vh] md:min-h-[82vh] sm:min-h-[70vh] mb-10 overflow-hidden">
       {/* 🎥 Background Video */}
       <video
         autoPlay
@@ -59,12 +85,30 @@ const Hero = () => {
       {/* Content */}
       <div className="max-w-5xl w-full text-center bg-transparent backdrop-blur-[0px] p-6 sm:p-8 lg:p-5 rounded-2xl sm:rounded-3xl shadow-lg">
         {/* Heading */}
-        <h1 className="text-xl sm:text-6xl md:text-6xl lg:text-5xl font-bold font-sans leading-tight text-white">
+        <h1 className="text-xl sm:text-6xl md:text-6xl lg:text-5xl font-bold font-sans leading-tight text-white mt-2">
           Where adventure meets{" "}
-          <span className="bg-gradient-to-r from-purple-600  to-pink-600 bg-clip-text text-transparent">
-            Simplicity.
-          </span>
-          <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-pink-500 inline-block align-middle animate-pulse ml-2" />
+          <AuroraText>
+            <span className="bg-clip-text text-transparent font-semibold">
+              <Typewriter
+                words={[
+                  "Simplicity",
+                  "Innovation",
+                  "Creativity",
+                  "Exploration",
+                  "Horizons",
+                  "Frontiers",
+                  "Adventures",
+                ]}
+                loop={0} // 0 = infinite loop
+                cursor
+                cursorStyle="-"
+                typeSpeed={100}
+                deleteSpeed={80}
+                delaySpeed={1500}
+              />
+            </span>
+            <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-cyan-500 inline-block align-middle animate-pulse ml-0" />
+          </AuroraText>
         </h1>
         <div className="flex items-center justify-center font-bold font-sans lg:mt-3 gap-3">
           <Compass className="w-10 h-10 text-green-500 animate-aurora" />

@@ -36,7 +36,7 @@ const Header = () => {
   };
 
   // Toggle music playback
-  const musicTracks = ["/Ordinary.mp3", "/Kamn.mp3", "/Harley-In-Hawaii.mp3","/Havana.mp3","/Chemtrails-over-the-country-club.mp3"];
+  const musicTracks = ["/Ordinary.mp3","Chammak-Challo.mp3", "/Kamn.mp3", "/Harley-In-Hawaii.mp3","/Havana.mp3","/Chemtrails-over-the-country-club.mp3"];
 
   const toggleMusic = () => {
     if (!audioRef.current) return;
@@ -233,4 +233,4 @@ const playRandomTrack = () => {
   );
 };
 
-export default Header;
+export default Header;  

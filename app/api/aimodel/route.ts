@@ -3,7 +3,15 @@ import { aj } from "@/lib/arcjet";
 import { currentUser, auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+// List all your Gemini API keys here
+const apiKeys = [
+  process.env.GEMINI_API_KEY!,
+  process.env.GEMINI_API_KEY_1!,
+  process.env.GEMINI_API_KEY_2!,
+  process.env.GEMINI_API_KEY_3!,
+];
+
+let currentKeyIndex = 0;
 
 // Prompts remain the same
 const PROMPT = `
@@ -122,52 +130,64 @@ function cleanGeminiResponse(text: string): string {
   // Remove markdown code fences like ```json ... ```
   return text.replace(/```json|```/g, "").trim();
 }
+
+// Wrapper to handle rate-limit rotation
+async function generateWithRotation(prompt: string) {
+  let attempt = 0;
+  const maxAttempts = apiKeys.length;
+
+  while (attempt < maxAttempts) {
+    try {
+      const apiKey = apiKeys[currentKeyIndex];
+      console.log(`Using Gemini API key index ${currentKeyIndex}: ${apiKey}`); // <-- Log key
+      const genAI = new GoogleGenerativeAI(apiKeys[currentKeyIndex]);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const result = await model.generateContent(prompt);
+      return cleanGeminiResponse(result.response.text());
+    } catch (err: any) {
+      // If rate limit error, switch key
+      if (err?.message?.includes("429") || err?.status === 429) {
+        currentKeyIndex = (currentKeyIndex + 1) % apiKeys.length;
+        attempt++;
+        console.log(`Rate limit hit. Switching API key to index ${currentKeyIndex}`);
+        continue;
+      }
+      throw err; // other errors
+    }
+  }
+
+  throw new Error("All API keys exhausted due to rate limits");
+}
+
+
 export async function POST(req: NextRequest) {
   const { messages, isFinal } = await req.json();
   const user = await currentUser();
   const { has } = await auth();
   const hasPremiumAccess = has({ plan: "monthly" });
-  console.log(hasPremiumAccess);
 
   const decision = await aj.protect(req, {
     userId: user?.primaryEmailAddress?.emailAddress ?? "guest",
-    requested: isFinal ? 5 : 0, // deduct tokens only on final request
+    requested: isFinal ? 5 : 0,
   });
 
-  console.log("Arcjet decision:", decision);
-  //@ts-ignore
-  if (decision?.reason?.remaining == 0 && !hasPremiumAccess) {
+  if ((decision?.reason as any).remaining === 0 && !hasPremiumAccess) {
     return NextResponse.json({ resp: "No Free Credit Remaining", ui: "limit" });
   }
 
+  const prompt = isFinal ? FINAL_PROMPT : PROMPT;
+  const userMessage = messages
+    .map((m: any) => `${m.role}: ${m.content}`)
+    .join("\n");
+
   try {
-    const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash", // or gemini-1.5-pro
-    });
-
-    const prompt = isFinal ? FINAL_PROMPT : PROMPT;
-
-    // Concatenate messages into a single conversation context
-    const userMessage = messages
-      .map((m: any) => `${m.role}: ${m.content}`)
-      .join("\n");
-
-    const result = await model.generateContent(`${prompt}\n${userMessage}`);
-
-    let text = result.response.text();
-
-    // 🧹 Clean Gemini response
-    text = cleanGeminiResponse(text);
-
+    const text = await generateWithRotation(`${prompt}\n${userMessage}`);
     return NextResponse.json(JSON.parse(text));
   } catch (e: unknown) {
-    if (e instanceof Error) {
-      console.error("Parse error:", e);
-      return NextResponse.json({ error: e.message || "Something went wrong" });
-    } else {
-      console.error("Unknown error:", e);
-      return NextResponse.json({ error: "An unknown error occurred" });
-    }
+    console.error("Gemini request error:", e);
+    return NextResponse.json({
+      error: (e as Error).message || "Something went wrong",
+    });
   }
 }
 
