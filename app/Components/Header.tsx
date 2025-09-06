@@ -36,7 +36,16 @@ const Header = () => {
   };
 
   // Toggle music playback
-  const musicTracks = ["/Ordinary.mp3","Chammak-Challo.mp3", "/Kamn.mp3", "/Harley-In-Hawaii.mp3","/Havana.mp3","/Chemtrails-over-the-country-club.mp3"];
+  const musicTracks = [
+    "/Cinamon.mp3",
+    "/Ordinary.mp3",
+    "/Love-Story.mp3",
+    "Chammak-Challo.mp3",
+    "/Kamn.mp3",
+    "/Harley-In-Hawaii.mp3",
+    "/Havana.mp3",
+    "/Chemtrails-over-the-country-club.mp3",
+  ];
 
   const toggleMusic = () => {
     if (!audioRef.current) return;
