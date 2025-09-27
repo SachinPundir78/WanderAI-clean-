@@ -142,7 +142,7 @@ async function generateWithRotation(prompt: string) {
       const apiKey = apiKeys[currentKeyIndex];
       console.log(`Using Gemini API key index ${currentKeyIndex}: ${apiKey}`); // <-- Log key
       const genAI = new GoogleGenerativeAI(apiKeys[currentKeyIndex]);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
       const result = await model.generateContent(prompt);
       return cleanGeminiResponse(result.response.text());
     } catch (err: any) {
