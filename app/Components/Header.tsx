@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,6 @@ import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
 import { usePathname, useRouter } from "next/navigation";
 import { FaMusic } from "react-icons/fa";
-
 
 const menuOptions = [
   { name: "Home", path: "/" },
@@ -20,57 +19,72 @@ const menuOptions = [
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);// Music state
-  const audioRef = useRef<HTMLAudioElement | null>(null); // Audio reference // Audio reference
+
+  const [shuffleQueue, setShuffleQueue] = useState<string[]>([]);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const { user } = useUser();
   const path = usePathname();
   const router = useRouter();
-  console.log(path);
+
+  const musicTracks = [
+    "/Harley-In-Hawaii.mp3",
+    "/Cinamon.mp3",
+    "/Ordinary.mp3",
+    "/Love-Story.mp3",
+    "/Chammak-Challo.mp3",
+    "/Kamn.mp3",
+    "/Havana.mp3",
+    "/Chemtrails-over-the-country-club.mp3",
+  ];
+
+  // Shuffle once when component mounts
+  useEffect(() => {
+    setShuffleQueue(shuffleArray(musicTracks));
+    setCurrentTrackIndex(0);
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const handleLogoClick = () => {
-    router.push("/"); // Redirect to home page
+    router.push("/");
   };
 
   // Toggle music playback
-  const musicTracks = [
-    "/Cinamon.mp3",
-    "/Ordinary.mp3",
-    "/Love-Story.mp3",
-    "Chammak-Challo.mp3",
-    "/Kamn.mp3",
-    "/Harley-In-Hawaii.mp3",
-    "/Havana.mp3",
-    "/Chemtrails-over-the-country-club.mp3",
-  ];
-
   const toggleMusic = () => {
     if (!audioRef.current) return;
 
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.src = musicTracks[currentTrackIndex];
+      audioRef.current.src = shuffleQueue[currentTrackIndex];
       audioRef.current.play();
     }
     setIsPlaying(!isPlaying);
   };
 
-const playRandomTrack = () => {
-  let nextIndex = Math.floor(Math.random() * musicTracks.length);
-  // Make sure it doesn't repeat the same track consecutively
-  while (nextIndex === currentTrackIndex && musicTracks.length > 1) {
-    nextIndex = Math.floor(Math.random() * musicTracks.length);
-  }
-  setCurrentTrackIndex(nextIndex);
-  if (audioRef.current) {
-    audioRef.current.src = musicTracks[nextIndex];
-    audioRef.current.play();
-  }
-};
+  // Play next song from queue, reshuffle when queue ends
+  const playNextTrack = () => {
+    if (shuffleQueue.length === 0) return;
+
+    let nextIndex = currentTrackIndex + 1;
+
+    if (nextIndex >= shuffleQueue.length) {
+      const newQueue = shuffleArray(musicTracks);
+      setShuffleQueue(newQueue);
+      nextIndex = 0;
+    }
+
+    setCurrentTrackIndex(nextIndex);
+
+    if (audioRef.current) {
+      audioRef.current.src = shuffleQueue[nextIndex];
+      audioRef.current.play();
+    }
+  };
 
   return (
     <header className="relative top-0 z-30 w-full">
@@ -109,9 +123,9 @@ const playRandomTrack = () => {
           ))}
         </nav>
 
-        {/* Desktop Get Started Button - Hidden on tablet/mobile */}
+        {/* Desktop Get Started Button */}
         <div className="hidden lg:flex mr-14 items-center gap-4">
-          {/* Music Button - Only visible on tablets and desktops */}
+          {/* Music Button */}
           <div
             onClick={toggleMusic}
             className={`relative md:flex items-center justify-center hidden w-10 h-10 rounded-full bg-black cursor-pointer transition-all duration-300
@@ -132,6 +146,7 @@ const playRandomTrack = () => {
               />
             )}
           </div>
+
           {!user ? (
             <SignInButton mode="modal">
               <RainbowButton className="font-sans w-full bg-white font-semibold hover:bg-black hover:text-white">
@@ -230,16 +245,21 @@ const playRandomTrack = () => {
           </nav>
         </div>
       )}
+
       {/* Background Audio */}
-      <audio
-        ref={audioRef}
-        onEnded={playRandomTrack} // play next track when current ends
-      >
-        <source src={musicTracks[currentTrackIndex]} type="audio/mp3" />
-        Your browser does not support the audio element.
-      </audio>
+      <audio ref={audioRef} onEnded={playNextTrack} />
     </header>
   );
 };
 
-export default Header;  
+// Fisher–Yates Shuffle
+function shuffleArray<T>(arr: T[]): T[] {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+export default Header;
