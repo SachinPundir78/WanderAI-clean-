@@ -30,6 +30,7 @@ const Header = () => {
 
   const musicTracks = [
     "/Harley-In-Hawaii.mp3",
+    "/Blend.mp3",
     "/Pahadi.mp3",
     "/Cinamon.mp3",
     "/Ordinary.mp3",
