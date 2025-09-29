@@ -223,7 +223,7 @@ const handleUiSelection = async (value: string) => {
                     </pre>
                   )}
                   {msg.ui && (
-                    <div className="mt-3">{RenderGenerativeUi(msg.ui)}</div>
+                    <div className="mt-3 mb-2">{RenderGenerativeUi(msg.ui)}</div>
                   )}
                 </div>
               </div>

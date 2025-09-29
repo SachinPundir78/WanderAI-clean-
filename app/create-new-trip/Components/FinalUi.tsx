@@ -3,7 +3,7 @@ import { Globe2 } from 'lucide-react'
 
 function FinalUi({viewTrip, disable}:any) {
   return (
-    <div className='flex flex-col items-center justify-center mt-6 p-6 bg-white rounded-2xl shadow-lg'>
+    <div className='flex flex-col items-center justify-center mt-3 p-6 bg-white rounded-2xl shadow-lg'>
           <Globe2 className="text-4xl animate-bounce text-amber-900" />
           <h2 className='mt-3 text-lg font-semibold text-black'>
               Planning your dream trip...
