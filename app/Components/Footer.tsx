@@ -14,31 +14,31 @@ interface QuickLink {
 
 const socialLinks: SocialLink[] = [
   {
-    href: "https://github.com/sachin",
+    href: "https://github.com/SachinPundir78",
     src: "https://img.icons8.com/?size=100&id=16318&format=png&color=FFFFFF",
     alt: "GitHub",
     label: "GitHub",
   },
   {
-    href: "https://linkedin.com/in/sachin",
+    href: "https://www.linkedin.com/in/sachin-pundir-6339b8250/",
     src: "https://img.icons8.com/?size=100&id=13930&format=png&color=FFFFFF",
     alt: "LinkedIn",
     label: "LinkedIn",
   },
   {
-    href: "https://twitter.com/sachin",
+    href: "https://x.com/SachinPund14262",
     src: "https://img.icons8.com/?size=100&id=ClbD5JTFM7FA&format=png&color=FFFFFF",
     alt: "Twitter",
     label: "Twitter",
   },
   {
-    href: "https://facebook.com/sachin",
+    href: "https://facebook.com/",
     src: "https://img.icons8.com/?size=100&id=118497&format=png&color=FFFFFF",
     alt: "Facebook",
     label: "Facebook",
   },
   {
-    href: "https://instagram.com/sachin",
+    href: "https://instagram.com/",
     src: "https://img.icons8.com/?size=100&id=32323&format=png&color=FFFFFF",
     alt: "Instagram",
     label: "Instagram",
